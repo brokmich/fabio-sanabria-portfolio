@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import fabioImg from "../../assets/character/fabio.png";
+import fabioImg    from "../../assets/character/fabio.png";
+import keyboardImg from "../../assets/items/keyboard.png";
 import "./Hero.css";
 
 const ROLES = [
@@ -193,13 +194,11 @@ export default function Hero() {
               className="hero__sprite-img"
             />
 
-            {/* PLACEHOLDER: seasonal decoration / item — replace with pixel art */}
-            <div
-              className="hero__placeholder hero__placeholder--item"
-              title="Placeholder: seasonal item art"
-            >
-              <span className="hero__placeholder-label">🌱 ITEM SLOT</span>
-            </div>
+            <img
+              src={keyboardImg}
+              alt="Pixel art keyboard"
+              className="hero__item-img"
+            />
           </div>
 
           {/* PLACEHOLDER: animal companion — replace with pixel art */}
