@@ -59,6 +59,16 @@
   transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
   flex-shrink: 0;
 }
+
+[data-theme="night"] .about__char-arrow {
+  background: #2a2440;
+  border-color: #c8b8f0;
+  box-shadow: 0 3px 0 0 #c8b8f0;
+  color: #ddd8f0;
+}
+[data-theme="night"] .about__char-arrow:hover {
+  background: #3a3458;
+}
 .about__char-arrow:hover {
   background: var(--gold);
   transform: translateY(-2px);

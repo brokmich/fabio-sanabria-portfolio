@@ -4,7 +4,7 @@
 .navbar {
   position: fixed;
   top: 0; left: 0; right: 0;
-  z-index: 100;
+  z-index: 201;
   transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
   border-bottom: 3px solid transparent;
 }
@@ -69,9 +69,12 @@
 }
 .navbar__time-badge:hover {
   background: var(--gold);
-  border-color: var(--wood-dark);
-  box-shadow: 0 3px 0 0 var(--wood-dark);
+  border-color: #4e2d10;
+  box-shadow: 0 3px 0 0 #4e2d10;
   transform: translateY(-1px);
+}
+.navbar__time-badge:hover .navbar__time-label {
+  color: #4e2d10;
 }
 .navbar__time-badge:active {
   transform: translateY(1px);
@@ -228,9 +231,14 @@
 .navbar__mobile {
   display: none;
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: var(--bg-primary);
-  z-index: 99;
+  z-index: 200;
   padding: 5rem 2rem 2rem;
   flex-direction: column;
   align-items: center;
@@ -332,6 +340,18 @@
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
   box-shadow: 0 3px 0 0 rgba(0, 0, 0, 0.2);
+}
+[data-theme="evening"] .navbar:not(.navbar--scrolled) .navbar__link--active,
+[data-theme="evening"] .navbar--scrolled .navbar__link--active,
+[data-theme="evening"] .navbar__link--active {
+  color: #3d1a08;
+  border-color: #3d1a08;
+  box-shadow: 0 3px 0 0 #3d1a08;
+}
+[data-theme="evening"] .navbar:not(.navbar--scrolled) .navbar__link--active:hover,
+[data-theme="evening"] .navbar__link--active:hover {
+  color: #3d1a08;
+  box-shadow: 0 5px 0 0 #3d1a08;
 }
 
 /* ──────────────────────────────────────────────

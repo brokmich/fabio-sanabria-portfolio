@@ -203,8 +203,8 @@
 .contact__footer-pixel { color: var(--emerald); }
 
 [data-theme="evening"] .contact__footer {
-  background: #1a1208;
-  border-top-color: #6a3820;
+  background: #4a2810;
+  border-top-color: #a07040;
 }
 [data-theme="evening"] .contact__footer-text {
   color: #d0b898;

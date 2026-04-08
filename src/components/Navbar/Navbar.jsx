@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { useTheme, THEME_INFO } from '../../context/ThemeContext'
 import './Navbar.css'
 
@@ -40,6 +41,7 @@ export default function Navbar() {
   }
 
   return (
+    <>
     <nav className={`navbar${scrolled ? ' navbar--scrolled' : ''}`}>
       <div className="navbar__inner">
 
@@ -98,32 +100,36 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile overlay */}
-      <div className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`}>
-        <div className="navbar__mobile-header">
-          <span className="navbar__mobile-title">MENU</span>
-          <button className="navbar__mobile-close" onClick={() => setMenuOpen(false)} aria-label="Close">✕</button>
-        </div>
-        <ul>
-          {NAV_LINKS.map(({ label, href, icon }) => (
-            <li key={href}>
-              <a
-                href={href}
-                className={`navbar__mobile-link${active === href ? ' navbar__mobile-link--active' : ''}`}
-                onClick={() => handleNavClick(href, label)}
-              >
-                <span className="navbar__mobile-icon">{icon}</span>
-                <span>{label}</span>
-                <span className="navbar__mobile-arrow">▶</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-        <div className="navbar__mobile-footer">
-          <span>{time.emoji}</span>
-          <span className="navbar__time-label">GOOD {time.label}</span>
-        </div>
-      </div>
     </nav>
+
+    {createPortal(
+        <div className={`navbar__mobile${menuOpen ? ' navbar__mobile--open' : ''}`}>
+          <div className="navbar__mobile-header">
+            <span className="navbar__mobile-title">MENU</span>
+            <button className="navbar__mobile-close" onClick={() => setMenuOpen(false)} aria-label="Close">✕</button>
+          </div>
+          <ul>
+            {NAV_LINKS.map(({ label, href, icon }) => (
+              <li key={href}>
+                <a
+                  href={href}
+                  className={`navbar__mobile-link${active === href ? ' navbar__mobile-link--active' : ''}`}
+                  onClick={() => handleNavClick(href, label)}
+                >
+                  <span className="navbar__mobile-icon">{icon}</span>
+                  <span>{label}</span>
+                  <span className="navbar__mobile-arrow">▶</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <div className="navbar__mobile-footer">
+            <span>{time.emoji}</span>
+            <span className="navbar__time-label">GOOD {time.label}</span>
+          </div>
+        </div>,
+        document.body
+      )}
+    </>
   )
 }

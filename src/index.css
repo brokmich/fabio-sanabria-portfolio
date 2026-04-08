@@ -315,9 +315,9 @@ ul { list-style: none; }
 }
 
 [data-theme="evening"] {
-  --bg-primary:   #7a5238;
-  --bg-secondary: #6a4228;
-  --bg-tertiary:  #5a3418;
+  --bg-primary:   #6a4228;
+  --bg-secondary: #5a3418;
+  --bg-tertiary:  #4a2810;
   --border:       #a07040;
   --border-muted: #805028;
   --text-primary:   #f5ead8;
@@ -328,6 +328,13 @@ ul { list-style: none; }
   --wood-light:  #d0a870;
   --wood-pale:   #3d2010;
   --topaz:       #f0c060;
+  --emerald:     #5cd688;
+  --emerald-dim: #1a4028;
+  --sapphire:    #70b8ff;
+  --sapphire-dim:#1a2840;
+  --amethyst:    #c498ff;
+  --amethyst-dim:#2a1a40;
+  --topaz-dim:   #3a2808;
   --sky:         #c04818;
   --sky-light:   #e07040;
   --grass-dark:  #2a5020;
@@ -358,8 +365,20 @@ ul { list-style: none; }
   --grass-light:   #2e4828;
 }
 
+[data-theme="evening"] .btn--outline:hover {
+  background: #f0c060;
+  color: #3d1a08;
+  box-shadow: 0 6px 0 0 #3d1a08;
+}
+
+[data-theme="evening"] .contact__social-link:hover {
+  color: #f5ead8;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #a07040;
+}
+
 [data-theme="evening"] .navbar--scrolled {
-  background: rgba(122, 82, 56, 0.78);
+  background: rgba(106, 66, 40, 0.82);
   border-bottom-color: #a07040;
   box-shadow: 0 4px 0 0 #a07040;
 }
