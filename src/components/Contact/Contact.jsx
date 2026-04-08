@@ -209,7 +209,8 @@ export default function Contact() {
       <div className="contact__footer">
         <p className="contact__footer-text">
           <span className="contact__footer-pixel">◆</span> Designed &amp; built
-          by Fabio Sanabria <span className="contact__footer-pixel">◆</span>
+          by Michelle Fonseca & Fabio Sanabria{" "}
+          <span className="contact__footer-pixel">◆</span>
         </p>
       </div>
     </section>
