@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import fabioImg from "../../assets/fabio.png";
+import fabioImg from "../../assets/character/fabio.png";
 import "./Hero.css";
 
 const ROLES = [

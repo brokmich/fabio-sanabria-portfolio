@@ -89,11 +89,15 @@
 /* Portrait frame */
 .about__avatar-grid {
   background: var(--sky-light);
-  border: 3px solid var(--wood-dark);
-  box-shadow: 3px 3px 0 0 var(--wood-dark);
+  border: 3px solid;
   padding: 0.5rem;
-  display: inline-flex;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  display: inline-block;
+}
+
+.about__avatar-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
 }
 
 .about__avatar-img {
@@ -101,6 +105,12 @@
   height: auto;
   image-rendering: pixelated;
   display: block;
+}
+
+.about__avatar-outfit {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .about__char-label {

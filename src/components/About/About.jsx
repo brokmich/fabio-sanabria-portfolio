@@ -1,15 +1,16 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import fabioImg    from '../../assets/fabio.png'
-import fabioArmor from '../../assets/fabio-armor.png'
-import fabioSwim  from '../../assets/fabio-swim.png'
+import baseImg   from '../../assets/character/base.png'
+import casualImg from '../../assets/character/casual.png'
+import armorImg  from '../../assets/character/armor.png'
+import swimImg   from '../../assets/character/swim.png'
 import './About.css'
 
 const CHARACTERS = [
-  { img: fabioImg,    label: 'DEVELOPER', class: 'Full-Stack Dev',  color: 'var(--emerald)',  hp: 92, mp: 78 },
-  { img: fabioArmor, label: 'KNIGHT',     class: 'Bug Slayer',      color: 'var(--sapphire)', hp: 100, mp: 45 },
-  { img: fabioSwim,  label: 'SWIMMER',    class: 'Off the Clock',   color: 'var(--topaz)',    hp: 80, mp: 95 },
+  { img: casualImg, label: 'DEVELOPER', class: 'Full-Stack Dev',  color: 'var(--emerald)',  hp: 92, mp: 78 },
+  { img: armorImg,  label: 'KNIGHT',    class: 'Bug Slayer',      color: 'var(--sapphire)', hp: 100, mp: 45 },
+  { img: swimImg,   label: 'SWIMMER',   class: 'Off the Clock',   color: 'var(--topaz)',    hp: 80, mp: 95 },
 ]
 
 const STATS = [
@@ -32,9 +33,10 @@ const INTERESTS = [
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
   const [charIdx, setCharIdx] = useState(0)
+  const [dir, setDir] = useState(1)
 
-  const prev = () => setCharIdx(i => (i - 1 + CHARACTERS.length) % CHARACTERS.length)
-  const next = () => setCharIdx(i => (i + 1) % CHARACTERS.length)
+  const prev = () => { setDir(-1); setCharIdx(i => (i - 1 + CHARACTERS.length) % CHARACTERS.length) }
+  const next = () => { setDir(1);  setCharIdx(i => (i + 1) % CHARACTERS.length) }
 
   const char = CHARACTERS[charIdx]
 
@@ -73,16 +75,31 @@ export default function About() {
 
               <div className="about__char-stage">
                 <div className="about__char-slide">
-                  <div
+                  <motion.div
                     className="about__avatar-grid"
                     style={{ borderColor: char.color, boxShadow: `3px 3px 0 0 ${char.color}` }}
+                    transition={{ duration: 0.2 }}
                   >
-                    <img
-                      src={char.img}
-                      alt={`Fabio — ${char.label}`}
-                      className="about__avatar-img"
-                    />
-                  </div>
+                    <div className="about__avatar-wrap">
+                      <img
+                        src={baseImg}
+                        alt="Fabio base"
+                        className="about__avatar-img"
+                      />
+                      <AnimatePresence mode="wait">
+                        <motion.img
+                          key={charIdx}
+                          src={char.img}
+                          alt={`Fabio — ${char.label}`}
+                          className="about__avatar-img about__avatar-outfit"
+                          initial={{ opacity: 0, x: dir * 40 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: dir * -40 }}
+                          transition={{ duration: 0.15, ease: 'easeInOut' }}
+                        />
+                      </AnimatePresence>
+                    </div>
+                  </motion.div>
                   <motion.div
                     key={`label-${charIdx}`}
                     className="about__char-label"
