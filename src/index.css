@@ -396,8 +396,8 @@ ul { list-style: none; }
 }
 
 @keyframes sun-pulse {
-  0%, 100% { box-shadow: 0 0 20px 4px rgba(240,192,64,0.4); }
-  50%       { box-shadow: 0 0 35px 10px rgba(240,192,64,0.6); }
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(240,192,64,0.5)); }
+  50%       { filter: drop-shadow(0 0 16px rgba(240,192,64,0.8)); }
 }
 
 @keyframes bird-fly {

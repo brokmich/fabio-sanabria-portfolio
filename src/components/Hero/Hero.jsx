@@ -125,6 +125,12 @@ import star7 from "../../assets/night/star-7.png";
 import star8 from "../../assets/night/star-8.png";
 import star9 from "../../assets/night/star-9.png";
 
+// ── Sun / moon assets ──
+import morningSun   from "../../assets/morning/sun.png";
+import afternoonSun from "../../assets/afternoon/sun.png";
+import eveningSun   from "../../assets/evening/sun.png";
+import nightMoon    from "../../assets/night/moon.png";
+
 // ── Morning bird assets ──
 import bird1 from "../../assets/morning/bird-1.png";
 import bird2 from "../../assets/morning/bird-2.png";
@@ -218,7 +224,11 @@ export default function Hero() {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.75, ease: "easeInOut" }}
         >
-          <div className={isNight ? "hero__moon" : "hero__sun"} />
+          <img
+            src={isNight ? nightMoon : isMorning ? morningSun : isEvening ? eveningSun : afternoonSun}
+            alt=""
+            className={isNight ? "hero__moon" : "hero__sun"}
+          />
         </motion.div>
       </AnimatePresence>
 
