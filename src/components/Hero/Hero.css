@@ -37,14 +37,25 @@
 .hero__moon {
   position: absolute;
   top: 14%;
-  right: 14%;
+  right: 38%;
   image-rendering: pixelated;
   animation: sun-pulse 4s ease-in-out infinite;
+}
+
+@media (max-width: 768px) {
+  .hero__sun,
+  .hero__moon {
+    right: 14%;
+  }
 }
 
 .hero__sun {
   width: 120px;
   height: auto;
+}
+
+.hero__sky--afternoon .hero__sun {
+  width: 150px;
 }
 
 .hero__moon {
