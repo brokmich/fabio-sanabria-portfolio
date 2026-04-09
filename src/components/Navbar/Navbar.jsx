@@ -91,6 +91,11 @@ export default function Navbar() {
           })}
         </ul>
 
+        <button className="navbar__time-badge navbar__time-badge--mobile" onClick={cycleTheme} title="Change time of day">
+          <span>{time.emoji}</span>
+          <span className="navbar__time-label">{time.label}</span>
+        </button>
+
         <button
           className={`navbar__hamburger${menuOpen ? ' navbar__hamburger--open' : ''}`}
           onClick={() => setMenuOpen(v => !v)}
@@ -124,8 +129,10 @@ export default function Navbar() {
             ))}
           </ul>
           <div className="navbar__mobile-footer">
-            <span>{time.emoji}</span>
-            <span className="navbar__time-label">GOOD {time.label}</span>
+            <button className="navbar__time-badge" onClick={cycleTheme} title="Change time of day">
+              <span>{time.emoji}</span>
+              <span className="navbar__time-label">{time.label}</span>
+            </button>
           </div>
         </div>,
         document.body
