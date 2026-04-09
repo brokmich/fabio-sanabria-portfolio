@@ -169,6 +169,16 @@
   pointer-events: none;
 }
 
+[data-theme="evening"] .navbar__tooltip,
+[data-theme="night"] .navbar__tooltip {
+  background: #f0e0c8;
+  color: #2a1a0e;
+}
+[data-theme="evening"] .navbar__tooltip::before,
+[data-theme="night"] .navbar__tooltip::before {
+  border-bottom-color: #f0e0c8;
+}
+
 /* Tooltip */
 .navbar__tooltip {
   position: absolute;
