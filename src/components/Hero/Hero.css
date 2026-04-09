@@ -368,9 +368,9 @@
   margin-top: 0.25rem;
 }
 
-.hero__placeholder--pet {
-  width: 100px;
+.hero__item-img--pet {
   height: 80px;
+  filter: drop-shadow(0 6px 4px rgba(0, 0, 0, 0.35));
 }
 
 /* Full-width bg placeholder — sits behind hills, only shows if no bg art added */

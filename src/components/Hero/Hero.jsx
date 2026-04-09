@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "../../context/ThemeContext";
 import fabioImg from "../../assets/character/fabio.png";
 import keyboardImg from "../../assets/items/keyboard.png";
+import petImg from "../../assets/items/pet.png";
 import "./Hero.css";
 
 const ROLES = [
@@ -369,12 +370,12 @@ export default function Hero() {
             />
           </div>
 
-          {/* PLACEHOLDER: animal companion — replace with pixel art */}
-          <div
-            className="hero__placeholder hero__placeholder--pet"
-            title="Placeholder: pet / animal companion"
-          >
-            <span className="hero__placeholder-label">🐾 PET SLOT</span>
+          <div className="hero__item">
+            <img
+              src={petImg}
+              alt="Pixel art pet"
+              className="hero__item-img hero__item-img--pet"
+            />
           </div>
         </motion.div>
       </div>
