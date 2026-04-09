@@ -458,6 +458,11 @@
   animation: bounce 2s ease-in-out infinite;
 }
 
+.hero--night .hero__scroll-label,
+.hero--night .hero__scroll-arrow {
+  color: #a89ec0;
+}
+
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .hero__inner {
