@@ -114,21 +114,72 @@ const FIREFLIES = [
   },
 ];
 
+// ── Night star assets ──
+import star1 from '../../assets/night/star-1.png'
+import star2 from '../../assets/night/star-2.png'
+import star3 from '../../assets/night/star-3.png'
+import star4 from '../../assets/night/star-4.png'
+import star5 from '../../assets/night/star-5.png'
+import star6 from '../../assets/night/star-6.png'
+import star7 from '../../assets/night/star-7.png'
+import star8 from '../../assets/night/star-8.png'
+import star9 from '../../assets/night/star-9.png'
+
+// ── Morning bird assets ──
+import bird1 from '../../assets/morning/bird-1.png'
+import bird2 from '../../assets/morning/bird-2.png'
+import bird3 from '../../assets/morning/bird-3.png'
+
+// ── Afternoon cloud assets ──
+import afCloud1     from '../../assets/afternoon/cloud-1.png'
+import afCloud2     from '../../assets/afternoon/cloud-2.png'
+import afCloudSmall from '../../assets/afternoon/cloud-small.png'
+
+// ── Evening cloud assets ──
+import evCloud1     from '../../assets/evening/cloud-1.png'
+import evCloud2     from '../../assets/evening/cloud-2.png'
+import evCloudSmall from '../../assets/evening/cloud-small.png'
+
+const STAR_IMGS = [star1, star2, star3, star4, star5, star6, star7, star8, star9]
+
+const STAR_SIZES = [24, 10, 18, 8, 20, 12, 16, 8, 14]
+
 const STARS = Array.from({ length: 40 }, (_, i) => ({
-  left:  `${(i * 37 + 11) % 97}%`,
-  top:   `${(i * 53 + 7)  % 75}%`,
-  size:  i % 3 === 0 ? 3 : i % 3 === 1 ? 2 : 1.5,
-  delay: `${(i * 0.3) % 3}s`,
-  dur:   `${2 + (i % 4) * 0.5}s`,
+  src:   STAR_IMGS[i % STAR_IMGS.length],
+  left:  `${(i * 73 + 17 * (i % 5) + 3)  % 99}%`,
+  top:   `${(i * 41 + 23 * (i % 7) + 11) % 85}%`,
+  size:  STAR_SIZES[i % STAR_SIZES.length],
+  delay: `${(i * 0.37) % 4}s`,
+  dur:   `${2 + (i % 5) * 0.4}s`,
 }))
 
+// Frames cycle: bird2 → bird3 → bird1 → bird3
+const BIRD_FRAMES = [bird2, bird3, bird1, bird3]
+
 const BIRDS = [
-  { style: { left: '10%', top: '18%', animationDuration: '8s',  animationDelay: '0s'   } },
-  { style: { left: '25%', top: '12%', animationDuration: '11s', animationDelay: '2s'   } },
-  { style: { left: '55%', top: '20%', animationDuration: '9s',  animationDelay: '4s'   } },
-  { style: { left: '75%', top: '14%', animationDuration: '13s', animationDelay: '1s'   } },
-  { style: { left: '85%', top: '22%', animationDuration: '10s', animationDelay: '3.5s' } },
+  { top: '15%', dur: '14s', delay: '0s',   size: 48 },
+  { top: '10%', dur: '18s', delay: '3s',   size: 16 },
+  { top: '22%', dur: '12s', delay: '6s',   size: 60 },
+  { top: '13%', dur: '16s', delay: '1.5s', size: 12 },
+  { top: '8%',  dur: '20s', delay: '4s',   size: 20 },
+  { top: '20%', dur: '10s', delay: '7s',   size: 72 },
 ]
+
+function BirdSprite({ top, dur, delay, size }) {
+  const [frame, setFrame] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setFrame(f => (f + 1) % BIRD_FRAMES.length), 150)
+    return () => clearInterval(id)
+  }, [])
+  return (
+    <img
+      src={BIRD_FRAMES[frame]}
+      alt=""
+      className="hero__bird"
+      style={{ top, animationDuration: dur, animationDelay: delay, height: size }}
+    />
+  )
+}
 
 export default function Hero() {
   const { theme } = useTheme()
@@ -158,12 +209,16 @@ export default function Hero() {
       {isNight && (
         <div className="hero__stars" aria-hidden="true">
           {STARS.map((s, i) => (
-            <div
+            <img
               key={i}
+              src={s.src}
+              alt=""
               className="hero__star"
               style={{
-                left: s.left, top: s.top,
-                width: s.size, height: s.size,
+                left: s.left,
+                top: s.top,
+                width: s.size,
+                height: s.size,
                 animationDelay: s.delay,
                 animationDuration: s.dur,
               }}
@@ -176,17 +231,24 @@ export default function Hero() {
       {isMorning && (
         <div className="hero__birds" aria-hidden="true">
           {BIRDS.map((b, i) => (
-            <div key={i} className="hero__bird" style={b.style} />
+            <BirdSprite key={i} top={b.top} dur={b.dur} delay={b.delay} size={b.size} />
           ))}
         </div>
       )}
 
       {/* ── Clouds (afternoon + evening) ── */}
-      {!isMorning && !isNight && (
-        <div className={`hero__clouds${isEvening ? ' hero__clouds--evening' : ''}`} aria-hidden="true">
-          <div className="hero__cloud hero__cloud--1" />
-          <div className="hero__cloud hero__cloud--2" />
-          <div className="hero__cloud hero__cloud--3" />
+      {theme === 'afternoon' && (
+        <div className="hero__clouds" aria-hidden="true">
+          <img src={afCloud1}     alt="" className="hero__cloud hero__cloud--1" />
+          <img src={afCloud2}     alt="" className="hero__cloud hero__cloud--2" />
+          <img src={afCloudSmall} alt="" className="hero__cloud hero__cloud--3" />
+        </div>
+      )}
+      {isEvening && (
+        <div className="hero__clouds" aria-hidden="true">
+          <img src={evCloud1}     alt="" className="hero__cloud hero__cloud--1" />
+          <img src={evCloud2}     alt="" className="hero__cloud hero__cloud--2" />
+          <img src={evCloudSmall} alt="" className="hero__cloud hero__cloud--3" />
         </div>
       )}
 

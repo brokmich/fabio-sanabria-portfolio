@@ -85,10 +85,11 @@
 
 .hero__star {
   position: absolute;
-  background: #fff;
-  border-radius: 50%;
-  animation: twinkle var(--dur, 2s) ease-in-out var(--delay, 0s) infinite;
-  box-shadow: 0 0 3px 1px rgba(255,255,255,0.6);
+  image-rendering: pixelated;
+  animation-name: twinkle;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 0 4px rgba(255, 255, 220, 0.8));
 }
 
 /* ── Birds ── */
@@ -101,33 +102,14 @@
 
 .hero__bird {
   position: absolute;
-  width: 12px;
-  height: 4px;
-  border-top: 3px solid #4a3420;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-radius: 50% 50% 0 0;
-  animation: bird-fly var(--animationDuration, 9s) ease-in-out var(--animationDelay, 0s) infinite;
-}
-.hero__bird::after {
-  content: '';
-  position: absolute;
-  right: -10px;
-  top: -3px;
-  width: 10px;
-  height: 4px;
-  border-top: 3px solid #4a3420;
-  border-left: 3px solid transparent;
-  border-right: 3px solid transparent;
-  border-radius: 50% 50% 0 0;
-}
+  left: -60px;
+  height: 20px;
+  width: auto;
+  image-rendering: pixelated;
 
-/* Evening cloud tint */
-.hero__clouds--evening .hero__cloud,
-.hero__clouds--evening .hero__cloud::before,
-.hero__clouds--evening .hero__cloud::after {
-  background: #e86030;
-  opacity: 0.7;
+  animation-name: cloud-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 
 /* ── Clouds ── */
@@ -140,79 +122,33 @@
 
 .hero__cloud {
   position: absolute;
-  background: #fff;
-  border-radius: 40px;
-  opacity: 0.88;
-  filter: drop-shadow(0 2px 0 rgba(0, 0, 0, 0.06));
-}
-.hero__cloud::before,
-.hero__cloud::after {
-  content: "";
-  position: absolute;
-  background: #fff;
-  border-radius: 50%;
+  image-rendering: pixelated;
+  height: auto;
 }
 
 .hero__cloud--1 {
-  width: 140px;
-  height: 44px;
-  top: 12%;
-  left: -160px;
+  width: 160px;
+  top: 10%;
+  left: -180px;
   animation: cloud-drift 28s linear infinite;
-}
-.hero__cloud--1::before {
-  width: 60px;
-  height: 60px;
-  top: -30px;
-  left: 20px;
-}
-.hero__cloud--1::after {
-  width: 40px;
-  height: 40px;
-  top: -22px;
-  left: 70px;
 }
 
 .hero__cloud--2 {
-  width: 100px;
-  height: 34px;
+  width: 120px;
   top: 22%;
-  left: -120px;
+  left: -140px;
   animation: cloud-drift 40s linear 8s infinite;
-  opacity: 0.7;
-}
-.hero__cloud--2::before {
-  width: 44px;
-  height: 44px;
-  top: -22px;
-  left: 12px;
-}
-.hero__cloud--2::after {
-  width: 30px;
-  height: 30px;
-  top: -16px;
-  left: 50px;
+  opacity: 0.85;
 }
 
 .hero__cloud--3 {
-  width: 120px;
-  height: 38px;
+  width: 80px;
   top: 8%;
-  left: -140px;
+  left: -100px;
   animation: cloud-drift 50s linear 3s infinite;
+  opacity: 0.75;
 }
-.hero__cloud--3::before {
-  width: 50px;
-  height: 50px;
-  top: -28px;
-  left: 18px;
-}
-.hero__cloud--3::after {
-  width: 36px;
-  height: 36px;
-  top: -20px;
-  left: 65px;
-}
+
 
 /* ── Hill silhouettes ── */
 .hero__hills {
