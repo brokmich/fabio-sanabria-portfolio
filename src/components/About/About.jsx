@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import baseImg   from '../../assets/character/base.png'
@@ -30,10 +30,55 @@ const INTERESTS = [
   { icon: '🎵', label: 'Music' },
 ]
 
+const BIO = [
+  "I'm a Software Engineer based in Cartago, Costa Rica. I recently graduated from the Universidad de Costa Rica with a Bachelor's in Computer Science — Software Engineering emphasis — earning a 9.2/10 GPA. Currently working as a Junior Software Developer at Flecha Roja Technologies, where I build and maintain enterprise-grade platforms.",
+  "My toolkit spans the full stack: Java and C++ for systems work, TypeScript and React for modern web apps, Angular and .NET Core for enterprise software, and AWS & Oracle Cloud for scalable infrastructure. I earned three OCI certifications in 2025 and keep levelling up daily.",
+  "When I'm not shipping code you'll find me exploring open-world RPGs, studying game mechanics, or picking up a new framework. I believe great software — like great games — is built with intention and care for those who use it.",
+]
+
+function RevealText({ text, progress, start, end }) {
+  const words = text.split(' ')
+  return (
+    <>
+      {words.map((word, i) => {
+        const threshold = start + (i / words.length) * (end - start)
+        const lit = progress >= threshold
+        return (
+          <span
+            key={i}
+            style={{
+              color: lit ? 'var(--text-primary)' : 'var(--text-secondary)',
+              opacity: lit ? 1 : 0.25,
+              transition: 'opacity 0.15s ease, color 0.15s ease',
+            }}
+          >
+            {word}{i < words.length - 1 ? ' ' : ''}
+          </span>
+        )
+      })}
+    </>
+  )
+}
+
 export default function About() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.15 })
   const [charIdx, setCharIdx] = useState(0)
   const [dir, setDir] = useState(1)
+  const bioRef = useRef(null)
+  const [bioProgress, setBioProgress] = useState(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      const el = bioRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const p = (window.innerHeight - rect.top) / (rect.height + window.innerHeight * 0.4)
+      setBioProgress(Math.min(1, Math.max(0, p)))
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll()
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   const prev = () => { setDir(-1); setCharIdx(i => (i - 1 + CHARACTERS.length) % CHARACTERS.length) }
   const next = () => { setDir(1);  setCharIdx(i => (i + 1) % CHARACTERS.length) }
@@ -185,25 +230,18 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <h3 className="about__bio-title">My Story</h3>
-            <p className="about__bio-text">
-              I&apos;m a Software Engineer based in Cartago, Costa Rica. I recently
-              graduated from the Universidad de Costa Rica with a Bachelor&apos;s in
-              Computer Science — Software Engineering emphasis — earning a 9.2/10 GPA.
-              Currently working as a Junior Software Developer at Flecha Roja
-              Technologies, where I build and maintain enterprise-grade platforms.
-            </p>
-            <p className="about__bio-text">
-              My toolkit spans the full stack: Java and C++ for systems work,
-              TypeScript and React for modern web apps, Angular and .NET Core for
-              enterprise software, and AWS &amp; Oracle Cloud for scalable infrastructure.
-              I earned three OCI certifications in 2025 and keep levelling up daily.
-            </p>
-            <p className="about__bio-text">
-              When I&apos;m not shipping code you&apos;ll find me exploring open-world RPGs,
-              studying game mechanics, or picking up a new framework. I believe
-              great software — like great games — is built with intention and care
-              for those who use it.
-            </p>
+            <div ref={bioRef}>
+              {BIO.map((text, i) => (
+                <p key={i} className="about__bio-text">
+                  <RevealText
+                    text={text}
+                    progress={bioProgress}
+                    start={i / BIO.length}
+                    end={(i + 1) / BIO.length}
+                  />
+                </p>
+              ))}
+            </div>
 
             <div className="about__interests">
               <p className="about__interests-label section-label">INTERESTS</p>

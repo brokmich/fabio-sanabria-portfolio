@@ -6,11 +6,117 @@
 
 .experience__header { margin-bottom: 3rem; }
 
-.experience__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+.experience__timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: 2.5rem;
   margin-bottom: 1.5rem;
+}
+
+/* Dashed vertical line */
+.experience__timeline::before {
+  content: '';
+  position: absolute;
+  left: 0.55rem;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: repeating-linear-gradient(
+    180deg,
+    var(--wood-dark) 0px,
+    var(--wood-dark) 8px,
+    transparent 8px,
+    transparent 14px
+  );
+}
+
+/* START indicator */
+.experience__timeline-start {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.experience__timeline-start-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--emerald);
+  border: 3px solid var(--wood-dark);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: -2.3rem;
+  box-shadow: 0 0 0 3px var(--bg-primary);
+}
+
+.experience__timeline-start-label {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--emerald);
+  letter-spacing: 0.12em;
+  background: var(--bg-primary);
+  padding: 0.2em 0.5em;
+  border: 2px solid var(--emerald);
+}
+
+/* END / PRESENT indicator */
+.experience__timeline-end {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+
+.experience__timeline-end-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--gold);
+  border: 3px solid var(--wood-dark);
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-left: -2.3rem;
+  box-shadow: 0 0 0 3px var(--bg-primary);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.experience__timeline-end-label {
+  font-family: var(--font-pixel);
+  font-size: 0.42rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  background: var(--bg-primary);
+  padding: 0.2em 0.5em;
+  border: 2px solid var(--gold);
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--bg-primary), 0 0 0 5px transparent; }
+  50%       { box-shadow: 0 0 0 3px var(--bg-primary), 0 0 6px 4px rgba(201,162,39,0.4); }
+}
+
+.experience__timeline-item {
+  position: relative;
+  padding-bottom: 1.75rem;
+}
+.experience__timeline-item:last-child { padding-bottom: 0; }
+
+.experience__timeline-node {
+  position: absolute;
+  left: -2.35rem;
+  top: 1.25rem;
+  font-size: 1rem;
+  background: var(--bg-primary);
+  padding: 1px 0;
+  line-height: 1;
+  z-index: 1;
 }
 
 .exp-card {
@@ -120,6 +226,19 @@
   color: var(--text-secondary);
 }
 
+.exp-card__xp-pop {
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  font-family: var(--font-pixel);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  pointer-events: none;
+  z-index: 10;
+  color: var(--gold) !important;
+  text-shadow: 0 2px 0 rgba(0,0,0,0.3);
+}
+
 @media (max-width: 700px) {
-  .experience__grid { grid-template-columns: 1fr; }
+  .experience__timeline { padding-left: 2rem; }
 }

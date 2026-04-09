@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import './Experience.css'
@@ -10,6 +11,7 @@ const JOBS = [
     color: 'var(--emerald)',
     badgeCls: 'badge--emerald',
     statusLabel: 'ACTIVE',
+    xp: '+500 XP',
     bullets: [
       'Refactored core code of critical projects: SignumOne (digital signature platform) and EVEX PRO (electronic invoicing system).',
       'Fixed reported bugs and implemented requested changes based on tickets and feedback from the team lead.',
@@ -24,6 +26,7 @@ const JOBS = [
     color: 'var(--sapphire)',
     badgeCls: 'badge--sapphire',
     statusLabel: 'COMPLETED',
+    xp: '+350 XP',
     bullets: [
       'Led requirement gathering sessions with clients to define system needs.',
       'Maintained continuous communication with the development team, providing guidance using agile methodologies.',
@@ -41,6 +44,14 @@ const CERTS = [
 
 function JobCard({ job, delay }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [showXP, setShowXP] = useState(false)
+
+  useEffect(() => {
+    if (!inView) return
+    const t1 = setTimeout(() => setShowXP(true),  (delay + 0.5) * 1000)
+    const t2 = setTimeout(() => setShowXP(false), (delay + 1.8) * 1000)
+    return () => { clearTimeout(t1); clearTimeout(t2) }
+  }, [inView, delay])
 
   return (
     <motion.div
@@ -51,6 +62,16 @@ function JobCard({ job, delay }) {
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.45, delay }}
     >
+      {showXP && (
+        <motion.span
+          className="exp-card__xp-pop"
+          initial={{ opacity: 1, y: 0 }}
+          animate={{ opacity: 0, y: -36 }}
+          transition={{ duration: 1.2, ease: 'easeOut' }}
+        >
+          {job.xp}
+        </motion.span>
+      )}
       <div className="exp-card__top">
         <span className={`badge ${job.badgeCls}`}>{job.statusLabel}</span>
         <span className="exp-card__period">{job.period}</span>
@@ -88,10 +109,23 @@ export default function Experience() {
           </p>
         </motion.div>
 
-        <div className="experience__grid">
+        <div className="experience__timeline">
+          <div className="experience__timeline-end">
+            <span className="experience__timeline-end-dot" />
+            <span className="experience__timeline-end-label">PRESENT</span>
+          </div>
+
           {JOBS.map((job, i) => (
-            <JobCard key={job.company} job={job} delay={0.1 + i * 0.1} />
+            <div key={job.company} className="experience__timeline-item">
+              <div className="experience__timeline-node" style={{ color: job.color }}>◆</div>
+              <JobCard job={job} delay={0.1 + i * 0.15} />
+            </div>
           ))}
+
+          <div className="experience__timeline-start">
+            <span className="experience__timeline-start-dot" />
+            <span className="experience__timeline-start-label">START</span>
+          </div>
         </div>
 
         {/* Certifications */}

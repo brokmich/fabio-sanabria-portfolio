@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import './Skills.css'
@@ -38,8 +39,23 @@ const SKILL_CATEGORIES = [
   },
 ]
 
+const SEGMENT_OPACITIES = [1, 0.78, 0.6, 0.45]
+
 function SkillBar({ name, level, color, delay }) {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.2 })
+  const [showMax, setShowMax] = useState(false)
+  const isMax = level >= 90
+
+  useEffect(() => {
+    if (!inView || !isMax) return
+    const t = setTimeout(() => setShowMax(true), (delay + 1) * 1000)
+    return () => clearTimeout(t)
+  }, [inView, isMax, delay])
+
+  const segments = [0, 1, 2, 3].map(i => ({
+    filled: Math.min(Math.max(level - i * 25, 0), 25) / 25,
+    opacity: SEGMENT_OPACITIES[i],
+  }))
 
   return (
     <div className="skill-bar" ref={ref}>
@@ -47,17 +63,21 @@ function SkillBar({ name, level, color, delay }) {
         <span className="skill-bar__name">{name}</span>
         <span className="skill-bar__level" style={{ color }}>
           LVL {level}
+          {showMax && <span className="skill-bar__max"> ★MAX</span>}
         </span>
       </div>
       <div className="skill-bar__track">
-        <motion.div
-          className="skill-bar__fill"
-          style={{ background: color }}
-          initial={{ width: 0 }}
-          animate={inView ? { width: `${level}%` } : {}}
-          transition={{ duration: 1, delay, ease: 'easeOut' }}
-        />
-        {/* Pixel notches */}
+        {segments.map((seg, i) => (
+          <div key={i} className="skill-bar__segment">
+            <motion.div
+              className="skill-bar__seg-fill"
+              style={{ background: color, opacity: seg.opacity }}
+              initial={{ width: '0%' }}
+              animate={inView ? { width: `${seg.filled * 100}%` } : {}}
+              transition={{ duration: 0.8, delay: delay + i * 0.1, ease: 'easeOut' }}
+            />
+          </div>
+        ))}
         <div className="skill-bar__notches" aria-hidden="true">
           {[25, 50, 75].map(v => (
             <div key={v} className="skill-bar__notch" style={{ left: `${v}%` }} />

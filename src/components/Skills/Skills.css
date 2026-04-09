@@ -72,25 +72,29 @@
   height: 10px;
   background: var(--bg-tertiary);
   border: 2px solid var(--wood-dark);
-  overflow: visible;
+  overflow: hidden;
+  display: flex;
 }
 
-.skill-bar__fill {
-  height: 100%;
+.skill-bar__segment {
+  flex: 1;
+  background: var(--bg-tertiary);
+  overflow: hidden;
   position: relative;
 }
 
-.skill-bar__fill::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(
-    to right,
-    transparent 0px,
-    transparent 7px,
-    rgba(0,0,0,0.12) 7px,
-    rgba(0,0,0,0.12) 9px
-  );
+.skill-bar__seg-fill {
+  height: 100%;
+}
+
+.skill-bar__max {
+  color: var(--gold);
+  animation: maxFlash 0.7s ease-in-out infinite alternate;
+}
+
+@keyframes maxFlash {
+  from { opacity: 1; }
+  to   { opacity: 0.25; }
 }
 
 .skill-bar__notches {
