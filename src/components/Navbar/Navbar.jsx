@@ -22,9 +22,30 @@ export default function Navbar() {
   const [sparkling, setSparkling] = useState(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40)
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40)
+      if (window.scrollY < 100) setActive('')
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const ids = NAV_LINKS.map(l => l.href.slice(1))
+    const observers = []
+
+    ids.forEach(id => {
+      const el = document.getElementById(id)
+      if (!el) return
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActive(`#${id}`) },
+        { threshold: 0.35 }
+      )
+      obs.observe(el)
+      observers.push(obs)
+    })
+
+    return () => observers.forEach(o => o.disconnect())
   }, [])
 
   useEffect(() => {
@@ -33,8 +54,7 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', onResize)
   }, [])
 
-  const handleNavClick = (href, label) => {
-    setActive(href)
+  const handleNavClick = (_href, label) => {
     setMenuOpen(false)
     setSparkling(label)
     setTimeout(() => setSparkling(null), 700)

@@ -7,6 +7,7 @@
   z-index: 201;
   transition: background 0.3s, border-color 0.3s, box-shadow 0.3s, backdrop-filter 0.3s;
   border-bottom: 3px solid transparent;
+  transform: translateZ(0);
 }
 
 .navbar--scrolled {
