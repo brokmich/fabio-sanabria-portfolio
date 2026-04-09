@@ -1,9 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import emailjs from "@emailjs/browser";
 import backgroundImg from "../../assets/background.png";
 import cowImg from "../../assets/cow.png";
 import "./Contact.css";
+
+const EMAILJS_SERVICE_ID = "service_fasv2002";
+const EMAILJS_TEMPLATE_ID = "template_ro7xl0w";
+const EMAILJS_PUBLIC_KEY = "GhfLgQv4wjSYXhhI3";
 
 const SOCIAL_LINKS = [
   {
@@ -46,7 +51,7 @@ const SOCIAL_LINKS = [
 export default function Contact() {
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.1 });
   const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [status, setStatus] = useState(null); // null | 'sending' | 'sent'
+  const [status, setStatus] = useState(null); // null | 'sending' | 'sent' | 'error'
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
@@ -54,9 +59,26 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setStatus("sending");
-    // Opens mailto — replace with a real backend/service if desired
-    window.location.href = `mailto:fasav12@gmail.com?subject=Message from ${encodeURIComponent(form.name)}&body=${encodeURIComponent(form.message)}%0A%0AFrom: ${encodeURIComponent(form.email)}`;
-    setTimeout(() => setStatus("sent"), 600);
+
+    emailjs
+      .send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+          title: form.name,
+        },
+        EMAILJS_PUBLIC_KEY
+      )
+      .then(() => {
+        setStatus("sent");
+        setForm({ name: "", email: "", message: "" });
+      })
+      .catch(() => {
+        setStatus("error");
+      });
   };
 
   return (
@@ -158,7 +180,12 @@ export default function Contact() {
 
               {status === "sent" && (
                 <p className="contact__success">
-                  ✓ Your mail client has been opened. Talk soon!
+                  ✓ Message received! I&apos;ll get back to you soon.
+                </p>
+              )}
+              {status === "error" && (
+                <p className="contact__error">
+                  ✗ Something went wrong. Try again or email me directly.
                 </p>
               )}
             </form>

@@ -129,6 +129,12 @@
   color: var(--emerald);
 }
 
+.contact__error {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: #ff4d4d;
+}
+
 /* ---- Info Panel ---- */
 .contact__info {
   display: flex;
