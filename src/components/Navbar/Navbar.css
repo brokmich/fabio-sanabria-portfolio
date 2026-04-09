@@ -376,9 +376,12 @@
   color: var(--wood-dark);
 }
 
+.navbar__time-badge--mobile { display: none; }
+
 @media (max-width: 768px) {
-  .navbar__links      { display: none; }
-  .navbar__time-badge { display: none; }
-  .navbar__hamburger  { display: flex; }
-  .navbar__mobile     { display: flex; }
+  .navbar__links                          { display: none; }
+  .navbar__time-badge:not(.navbar__time-badge--mobile) { display: none; }
+  .navbar__time-badge--mobile             { display: flex; }
+  .navbar__hamburger                      { display: flex; }
+  .navbar__mobile                         { display: flex; }
 }
