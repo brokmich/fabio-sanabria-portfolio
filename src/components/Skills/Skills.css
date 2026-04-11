@@ -112,6 +112,23 @@
   z-index: 1;
 }
 
+.skill-bar__tiers {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+}
+
+.skill-bar__tiers span {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  width: 25%;
+  text-align: center;
+}
+
+.skill-bar__tiers span:first-child { text-align: left; }
+.skill-bar__tiers span:last-child  { text-align: right; }
+
 @media (max-width: 900px) {
   .skills__grid { grid-template-columns: 1fr; }
 }

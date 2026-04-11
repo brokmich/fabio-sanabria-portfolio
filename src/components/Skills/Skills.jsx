@@ -9,10 +9,11 @@ const SKILL_CATEGORIES = [
     icon: '⌨',
     color: 'var(--amethyst)',
     skills: [
-      { name: 'JavaScript',  level: 88 },
-      { name: 'TypeScript',  level: 83 },
-      { name: 'Java',        level: 82 },
-      { name: 'Python',      level: 72 },
+      { name: 'JavaScript',  level: 76 },
+      { name: 'TypeScript',  level: 75 },
+      { name: 'C#',  level: 65 },
+      { name: 'Java',        level: 45 },
+      { name: 'Python',      level: 40 },
     ],
   },
   {
@@ -83,6 +84,12 @@ function SkillBar({ name, level, color, delay }) {
             <div key={v} className="skill-bar__notch" style={{ left: `${v}%` }} />
           ))}
         </div>
+      </div>
+      <div className="skill-bar__tiers" aria-hidden="true">
+        <span>Basic</span>
+        <span>Intermediate</span>
+        <span>Advanced</span>
+        <span>Expert</span>
       </div>
     </div>
   )
