@@ -22,18 +22,21 @@ const STATS = [
 ]
 
 const INTERESTS = [
-  { icon: '⚔️', label: 'RPG Games' },
+  { icon: '🎮', label: 'Video Games' },
+  { icon: '🏊', label: 'Swimming' },
   { icon: '🧩', label: 'Problem Solving' },
   { icon: '☁️', label: 'Cloud Tech' },
+  { icon: '💻', label: 'Web Development' },
   { icon: '📚', label: 'Learning' },
-  { icon: '🎮', label: 'Game Dev' },
-  { icon: '🎵', label: 'Music' },
+  { icon: '⚙️', label: 'Backend Development' },
+  { icon: '🤖', label: 'Artificial Intelligence' },
+  { icon: '🗄️', label: 'Data Science/Data Engineering' }
 ]
 
 const BIO = [
-  "I'm a Software Engineer based in Cartago, Costa Rica. I recently graduated from the Universidad de Costa Rica with a Bachelor's in Computer Science — Software Engineering emphasis — earning a 9.2/10 GPA. Currently working as a Junior Software Developer at Flecha Roja Technologies, where I build and maintain enterprise-grade platforms.",
-  "My toolkit spans the full stack: Java and C++ for systems work, TypeScript and React for modern web apps, Angular and .NET Core for enterprise software, and AWS & Oracle Cloud for scalable infrastructure. I earned three OCI certifications in 2025 and keep levelling up daily.",
-  "When I'm not shipping code you'll find me exploring open-world RPGs, studying game mechanics, or picking up a new framework. I believe great software — like great games — is built with intention and care for those who use it.",
+  "I'm a Software Engineer based in Cartago, Costa Rica. I recently graduated from the Universidad de Costa Rica with a Bachelor's degree in Computer Science, with an emphasis in Software Engineering, earning a 9.2/10 GPA. I'm currently working as a Junior Software Developer at Flecha Roja Technologies, where I help build and maintain enterprise-level platforms.",
+  "I work across the full stack, using languages like Java, C#, Python, C++, Javascript and TypeScript. On the framework side, I build modern web applications with React, and develop enterprise solutions using Angular and .NET Core. I also have experience with AWS and Oracle Cloud for scalable infrastructure, and earned three OCI certifications in 2025.",
+  "Outside of work, I enjoy swimming, playing video games, and going out to try good food. I like approaching software with the same mindset, building things with care, purpose, and a focus on the people who will use them.",
 ]
 
 function RevealText({ text, progress, start, end }) {

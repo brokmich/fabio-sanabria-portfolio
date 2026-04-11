@@ -329,9 +329,8 @@ export default function Hero() {
           </p>
 
           <p className="hero__bio">
-            Building robust software by day, exploring digital worlds by night.
-            I craft clean, efficient code with the same dedication I bring to
-            levelling up in any adventure.
+            Building robust software by day, and continuously exploring new technologies beyond work. 
+            I focus on writing clean, efficient code with dedication and attention to detail. Also, I love playing videogames :D
           </p>
 
           <div className="hero__ctas">
