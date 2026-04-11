@@ -177,7 +177,7 @@ export default function Projects() {
               <p className="section-label">// QUEST.LOG</p>
               <h2 className="section-heading">Projects</h2>
               <p className="section-sub">
-                A selection of quests completed, in progress, and still on the
+                A selection of projects completed, in progress, and still on the
                 horizon.
               </p>
             </div>
